@@ -344,6 +344,8 @@
 "Assets/3rdPerson+Fly/Scripts/PlayerScripts/FlyBehaviour.cs"
 "Assets/3rdPerson+Fly/Scripts/PlayerScripts/MoveBehaviour.cs"
 "Assets/Scripts/Alarm.cs"
+"Assets/Scripts/Player.cs"
+"Assets/Scripts/VolumeControl.cs"
 -langversion:9.0
 
 /deterministic

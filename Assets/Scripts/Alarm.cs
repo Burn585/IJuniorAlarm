@@ -1,67 +1,31 @@
 using UnityEngine;
 
+[RequireComponent(typeof(VolumeControl))]
+
 public class Alarm : MonoBehaviour
 {
-    [SerializeField] private float _speedRate = 0.5f;
-
-    private AudioSource _audioSource;
+    private VolumeControl _volumeControl;
     private bool _isPlayingAlarm = false;
-    private bool isVolumeDown = true;
-    private float _currentVolume = 0;
 
     private void Start()
     {
-        _audioSource = GetComponent<AudioSource>();
-    }
-
-    private void Update()
-    {
-        if (_isPlayingAlarm)
-        {
-            VolumeControl();
-        }
+        _volumeControl = GetComponent<VolumeControl>();
     }
 
     private void OnTriggerEnter(Collider collider)
     {
-        if (collider.tag == "Player")
+        if (collider.GetComponent<Player>())
         {
             if (_isPlayingAlarm == false)
             {
-                _audioSource.Play();
+                _volumeControl.Run();
                 _isPlayingAlarm = true;
             }
             else
             {
-                _audioSource.Stop();
+                _volumeControl.Stop();
                 _isPlayingAlarm = false;
             }
-        }
-    }
-
-    private void VolumeControl()
-    {
-        float maxVolume = 1;
-        float minVolume = 0;
-
-        if (isVolumeDown)
-        {
-            _currentVolume = Mathf.MoveTowards(_currentVolume, maxVolume, _speedRate * Time.deltaTime);
-            _audioSource.volume = _currentVolume;
-        }
-        else
-        {
-            _currentVolume = Mathf.MoveTowards(_currentVolume, minVolume, _speedRate * Time.deltaTime);
-            _audioSource.volume = _currentVolume;
-        }
-
-        if (_currentVolume <= minVolume)
-        {
-            isVolumeDown = true;
-        }
-        else if (_currentVolume >= maxVolume)
-        {
-            isVolumeDown = false;
         }
     }
 }
